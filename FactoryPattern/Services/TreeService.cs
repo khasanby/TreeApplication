@@ -3,7 +3,6 @@ using FactoryPattern.FactoryMethods;
 using FactoryPattern.ServiceInterfaces;
 using FactoryPattern.TreeBases;
 using FactoryPattern.Trees;
-using FactoryPattern.TreeTypes;
 
 namespace FactoryPattern.Services
 {
@@ -16,10 +15,14 @@ namespace FactoryPattern.Services
         {
             ITreeTypeService typeService = new TreeTypeService();
             
-            Console.WriteLine("1.Apple \n2.Cherry \n3.Orange \n4.Peach");
+            Console.WriteLine("1.Apple \n2.Cherry \n3.Orange \n4.Peach \nq to exit");
             Console.Write("Please enter a tree number: ");
-            
-            int treeId = InputCheck(Console.ReadLine(), new int[4] { 1, 2, 3, 4 });
+
+            var consoleInput = Console.ReadLine();
+            if (consoleInput == "q")
+                MoreTrees(treesWithCount, consoleInput);
+
+            int treeId = InputCheck(consoleInput, new int[4] { 1, 2, 3, 4 });
             var treeTypesList = typeService.GetTreeTypes(treeId);
             typeService.PrintTreeTypes(treeTypesList);
 
@@ -108,7 +111,7 @@ namespace FactoryPattern.Services
             {
                 TreeChoosing(treesWithCount);
             }
-            else if (yesOrNo == "n")
+            else if (yesOrNo == "n" || yesOrNo == "q")
             {
                 PrintInfo(treesWithCount);
             }
@@ -138,6 +141,8 @@ namespace FactoryPattern.Services
 
             Console.WriteLine("===============================================================");
             Console.WriteLine($"Trees you chose:");
+            if (treesWithCount.Count == 0)
+                Console.WriteLine("You haven't chosen any trees :(");
 
             foreach (var pair in treesWithCount)
             {
@@ -150,6 +155,7 @@ namespace FactoryPattern.Services
 
             Console.WriteLine($"Total area required: {area}m2. \nAverage rise time: {avgRiseTime} years.");
             Console.WriteLine("===============================================================");
+            Environment.Exit(0);
         }
     }
 }

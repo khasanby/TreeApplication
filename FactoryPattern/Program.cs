@@ -11,7 +11,10 @@ class Program
         /// for key and trees' count for its value property.
         Dictionary<int, int> trees = new();
 
+        Console.WriteLine("===============================================================");
         Console.WriteLine("Welcome to Farm Calculator application!");
+        Console.WriteLine("Choose trees you want to plant");
+        Console.WriteLine("===============================================================");
         treeService.TreeChoosing(trees);
     }       
 }
